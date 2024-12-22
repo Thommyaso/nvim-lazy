@@ -103,7 +103,10 @@ return {
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
                 { name = 'buffer' },
-            })
+            }),
+            experimental = {
+                ghost_text = true, -- Enable inline ghost text
+            },
         })
         vim.diagnostic.config({
             -- update_in_insert = true,
