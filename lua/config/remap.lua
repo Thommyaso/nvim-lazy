@@ -17,31 +17,14 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("v", "<leader>s", function()
     vim.cmd('noau normal! "vy')
     local selected_text = vim.fn.getreg('v')
-    -- Characters that need escaping in Vim command-line
-    --local special_chars = {
-        --['\\'] = '\\\\',  -- backslash must be first
-        --['|'] = '\\|',    -- pipe
-        --['%'] = '\\%',    -- percent
-        --[' '] = '\\ ',    -- space
-        --['#'] = '\\#',    -- hash/pound
-        --['<'] = '\\<',    -- less than
-        --['>'] = '\\>',    -- greater than
-        --['$'] = '\\$',    -- dollar sign
-        --['"'] = '\\"',    -- double quote
-        --['*'] = '\\*',    -- asterisk
-        --['['] = '\\[',    -- open square bracket
-        --[']'] = '\\]',    -- close square bracket
-    --}
 
-    --selected_text = selected_text:gsub('.', function(char)
-     --   return special_chars[char] or char
-    --end)
-    --  selected_text = vim.fn.escape(selected_text, '/.*^$~[], ')
-    local command = string.format(":%s/\\V%s/%s/g", "%s", selected_text, selected_text)
-    --local command = string.format(":%s /\\<%s\\>/%s/gI", "%s", selected_text, selected_text)
-    local move_cursor_left = vim.api.nvim_replace_termcodes("<Left><Left>", true, true, true)
+    selected_text = vim.fn.escape(selected_text, '/\\')
 
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes(command, true, true, true) .. move_cursor_left)
+    local command = vim.api.nvim_replace_termcodes(":%s/\\V", true, true, true)
+    local searchString = string.format("%s/%s/gc", selected_text, selected_text)
+    local move_cursor_left = vim.api.nvim_replace_termcodes("<Left><Left><Left>", true, true, true)
+
+    vim.fn.feedkeys(command .. searchString .. move_cursor_left)
 end)
 
 
