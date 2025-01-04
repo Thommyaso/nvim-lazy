@@ -119,5 +119,6 @@ return {
                 prefix = "",
             },
         })
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
     end
 }
