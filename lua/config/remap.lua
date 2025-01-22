@@ -1,5 +1,12 @@
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
+--Setting standard nvim copy and paste to copy to same register between all neovims ('"+' register):
+vim.opt.clipboard = "unnamedplus"
+
+--Setting up Control+c to copy to system register using xclip
+--Xclip required! Install using: sudo apt install xclip
+vim.keymap.set("v", "<C-c>", ":!xclip -f -sel clip<CR>")
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
@@ -9,7 +16,9 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>pp", [["_dP]])
+vim.keymap.set('n', '<leader>p', '<nop>')
+vim.keymap.set('x', '<leader>p', '<nop>')
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
