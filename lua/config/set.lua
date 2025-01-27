@@ -40,7 +40,7 @@ vim.keymap.set("n", "<C-t>", function()
 end)
 vim.keymap.set("n", "<C-Left>", ":tabp<CR>")
 vim.keymap.set("n", "<C-Right>", ":tabn<CR>")
-        
+
 -- Sets the pwd to where the edditor was opened:
 --vim.cmd([[
  -- autocmd VimEnter * silent! lcd %:p:h
@@ -67,8 +67,17 @@ vim.keymap.set("n", "<leader>pwd", function()
     local path = vim.fn.getcwd()
     print(path)
     vim.cmd("Explore " ..path)
---end, { noremap = true, silent = true })
 end)
 
 -- set current file directory as nvim pwd:
 vim.keymap.set("n", "<leader>cd", ":cd %:p:h<CR>")
+
+vim.opt.signcolumn = "yes"
+vim.cmd [[
+ "highlight GitSignsAdd guifg=#32FF32 gui=bold   " Neon green
+ " highlight GitSignsChange guifg=#FFD700 gui=bold " Bright yellow-gold
+ " highlight GitSignsDelete guifg=#FF5555 gui=bold " Neon red
+  highlight GitSignsAdd gui=bold
+  highlight GitSignsChange gui=bold
+  highlight GitSignsDelete gui=bold
+  ]]
