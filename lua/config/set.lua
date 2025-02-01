@@ -74,10 +74,10 @@ vim.keymap.set("n", "<leader>cd", ":cd %:p:h<CR>")
 
 vim.opt.signcolumn = "yes"
 vim.cmd [[
- "highlight GitSignsAdd guifg=#32FF32 gui=bold   " Neon green
- " highlight GitSignsChange guifg=#FFD700 gui=bold " Bright yellow-gold
- " highlight GitSignsDelete guifg=#FF5555 gui=bold " Neon red
   highlight GitSignsAdd gui=bold
   highlight GitSignsChange gui=bold
   highlight GitSignsDelete gui=bold
   ]]
+
+--Git:
+vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
