@@ -81,3 +81,4 @@ vim.cmd [[
 
 --Git:
 vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
+vim.keymap.set("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", {})
