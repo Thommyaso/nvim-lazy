@@ -21,4 +21,14 @@ require'nvim-treesitter.configs'.setup {
   indent = {
       enable = true,
   },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,  -- Automatically jump forward to textobj, similar to targets.vim
+            keymaps = {
+                ["af"] = "@function.outer",  -- "a function" text object
+                ["if"] = "@function.inner",  -- "inner function" text object
+            },
+        },
+    },
 }

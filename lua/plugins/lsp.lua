@@ -12,6 +12,7 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "rafamadriz/friendly-snippets"
     },
 
     config = function()
@@ -99,8 +100,8 @@ return {
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
+                { name = 'nvim_lsp' },
             }, {
                 { name = 'buffer' },
             }),
@@ -108,6 +109,33 @@ return {
                 ghost_text = true, -- Enable inline ghost text
             },
         })
+
+        local ls = require "luasnip"
+
+        -- keep snippet history alive so you can jump back to swithing between snippet areas after going back to normal mode
+        ls.config.setup({
+            history = true,
+            updateevents = "TextChanged,TextChangedI",
+        })
+
+        require("luasnip.loaders.from_vscode").lazy_load()
+
+        for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
+            loadfile(ft_path)()
+        end
+
+        vim.keymap.set({ "i", "s" }, "<c-j>", function ()
+            if ls.jumpable(1) then
+                ls.jump(1)
+            end
+        end, { silent = true })
+
+        vim.keymap.set({"i", "s"}, "<c-k>", function ()
+            if ls.jumpable(-1) then
+                ls.jump(-1)
+            end
+        end, { silent = true })
+
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
