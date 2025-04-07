@@ -1,5 +1,7 @@
 local builtin = require('telescope.builtin')
 
+-- vim.keymap.set("n", "<leader>fj", builtin.lsp_type_definitions)
+
 vim.keymap.set('n', '<leader>RR', builtin.reloader)
 
 vim.keymap.set('n', '<leader>fa', builtin.lsp_workspace_symbols)

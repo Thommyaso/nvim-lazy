@@ -154,7 +154,24 @@ return {
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
 
         -- Go to type definition
-        vim.keymap.set("n", "<leader>fj", vim.lsp.buf.type_definition)
+        vim.keymap.set("n", "<leader>fj", function()
+            local params = vim.lsp.util.make_position_params()
+            vim.lsp.buf_request(0, "textDocument/typeDefinition", params, function(err, result)
+                if err then
+                    vim.notify("LSP Error: " .. err.message, vim.log.levels.ERROR)
+                    return
+                end
+                if not result or vim.tbl_isempty(result) then
+                    vim.notify("No type definition found", vim.log.levels.INFO)
+                    return
+                end
+
+                -- handle both single and multiple results
+                local location = result[1] or result
+                vim.lsp.util.preview_location(location, { border = "rounded" })
+            end)
+        end, { desc = "Type Definition in Floating Window" })
+
         vim.keymap.set('n', 'gD', '<CMD>Glance definitions<CR>')
         vim.keymap.set('n', 'gR', '<CMD>Glance references<CR>')
         vim.keymap.set('n', 'gY', '<CMD>Glance type_definitions<CR>')
