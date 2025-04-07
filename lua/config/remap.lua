@@ -38,7 +38,7 @@ end)
 
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-vim.keymap.set("n", "<leader>qq", ":bd!<CR>")
+-- vim.keymap.set("n", "<leader>qq", ":bd!<CR>")
 
 -- When splitting window focus on the new split:
 vim.keymap.set('n', '<C-w>v', ':vsplit<CR><C-w>l', { noremap = true, silent = true })
