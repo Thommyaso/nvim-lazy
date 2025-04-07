@@ -12,7 +12,11 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
-        "rafamadriz/friendly-snippets"
+        "rafamadriz/friendly-snippets",
+        {
+            'dnlhc/glance.nvim',
+            cmd = 'Glance'
+        }
     },
 
     config = function()
@@ -150,6 +154,9 @@ return {
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
 
         -- Go to type definition
-        vim.keymap.set("n", "jt", vim.lsp.buf.type_definition)
+        vim.keymap.set("n", "<leader>fj", vim.lsp.buf.type_definition)
+        vim.keymap.set('n', 'gD', '<CMD>Glance definitions<CR>')
+        vim.keymap.set('n', 'gR', '<CMD>Glance references<CR>')
+        vim.keymap.set('n', 'gY', '<CMD>Glance type_definitions<CR>')
     end
 }
