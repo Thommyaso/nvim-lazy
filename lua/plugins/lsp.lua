@@ -148,5 +148,8 @@ return {
             },
         })
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
+
+        -- Go to type definition
+        vim.keymap.set("n", "jt", vim.lsp.buf.type_definition)
     end
 }
