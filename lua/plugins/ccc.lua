@@ -16,6 +16,8 @@ return {
             },
         })
 
+        vim.keymap.set("n", "<leader>cp", ":CccPick<CR>")
         vim.keymap.set("i", "<C-c>p", function() vim.cmd("CccPick") end)
     end
 }
+
