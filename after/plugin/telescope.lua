@@ -21,7 +21,8 @@ vim.keymap.set('n', '<leader>fs', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end)
 
-vim.keymap.set('n', '<leader>lg', builtin.live_grep)
+-- vim.keymap.set('n', '<leader>lg', builtin.live_grep)
+vim.keymap.set("n", "<leader>lg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
 vim.keymap.set('v', '<leader>fs', function()
     vim.cmd('noau normal! "vy')
