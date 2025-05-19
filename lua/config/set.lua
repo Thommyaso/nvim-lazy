@@ -82,9 +82,3 @@ vim.cmd [[
 --Git:
 vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
 vim.keymap.set("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", {})
-
--- Jump to previous cursor location
-vim.keymap.set("n", "<leader>b", "<C-o>", { desc = "Jump back in cursor history" })
-
--- Jump to next cursor location
-vim.keymap.set("n", "<leader>n", "<C-i>", { desc = "Jump forward in cursor history" })

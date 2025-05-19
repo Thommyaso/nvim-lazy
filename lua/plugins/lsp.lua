@@ -9,7 +9,10 @@ return {
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/nvim-cmp",
-        "L3MON4D3/LuaSnip",
+        {
+            "L3MON4D3/LuaSnip",
+            build = "make install_jsregexp",
+        },
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
         "rafamadriz/friendly-snippets",
@@ -152,6 +155,10 @@ return {
             },
         })
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
+        vim.keymap.set('n', 'L',
+            function()
+                vim.diagnostic.open_float(nil, { focus = false })
+            end)
 
         -- Go to type definition
         vim.keymap.set("n", "<leader>fj", function()
@@ -175,5 +182,7 @@ return {
         vim.keymap.set('n', 'gD', '<CMD>Glance definitions<CR>')
         vim.keymap.set('n', 'gR', '<CMD>Glance references<CR>')
         vim.keymap.set('n', 'gY', '<CMD>Glance type_definitions<CR>')
-    end
+    end,
+
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
 }
