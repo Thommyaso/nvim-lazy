@@ -85,3 +85,19 @@ vim.keymap.set("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", {})
 
 vim.keymap.set("n", "<leader>jq", ":%!jq . <CR>")
 vim.keymap.set("v", "<leader>jq", "!jq . <CR>")
+
+-- Toggle Quickfix Window
+vim.keymap.set('n', '<leader>Q', function()
+  local is_open = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "buftype") == "quickfix" then
+      is_open = true
+      break
+    end
+  end
+  if is_open then
+    vim.cmd("cclose")
+  else
+    vim.cmd("copen")
+  end
+end, { desc = "Toggle Quickfix Window" })
