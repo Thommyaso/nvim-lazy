@@ -21,7 +21,6 @@ return {
             cmd = 'Glance'
         }
     },
-
     config = function()
         require("conform").setup({
             formatters_by_ft = {
@@ -48,6 +47,17 @@ return {
                         capabilities = capabilities
                     }
 
+                    require('lspconfig').intelephense.setup({
+                        settings = {
+                            intelephense = {
+                                format = {
+                                    enable = true,
+                                    braces = "k&r" -- or "allman", "psr12"
+                                }
+                            }
+                        }
+                    })
+
                     require("lspconfig").eslint.setup({
                         --- ...
                         on_attach = function(client, bufnr)
@@ -73,7 +83,6 @@ return {
                     })
                     vim.g.zig_fmt_parse_errors = 0
                     vim.g.zig_fmt_autosave = 0
-
                 end,
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
@@ -131,13 +140,13 @@ return {
             loadfile(ft_path)()
         end
 
-        vim.keymap.set({ "i", "s" }, "<c-j>", function ()
+        vim.keymap.set({ "i", "s" }, "<c-j>", function()
             if ls.jumpable(1) then
                 ls.jump(1)
             end
         end, { silent = true })
 
-        vim.keymap.set({"i", "s"}, "<c-k>", function ()
+        vim.keymap.set({ "i", "s" }, "<c-k>", function()
             if ls.jumpable(-1) then
                 ls.jump(-1)
             end
@@ -183,6 +192,31 @@ return {
         vim.keymap.set('n', 'gR', '<CMD>Glance references<CR>')
         vim.keymap.set('n', 'gY', '<CMD>Glance type_definitions<CR>')
     end,
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action),
 
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+    -- text formatting on insert leave and pasting
+    vim.api.nvim_create_autocmd("InsertLeave", {
+        callback = function()
+          local start_line = vim.api.nvim_buf_get_mark(0, "[")[1]
+          local end_line = vim.api.nvim_buf_get_mark(0, "]")[1]
+
+          vim.lsp.buf.format({
+              async = true,
+              range = {
+                  start = { start_line, 0 },
+                  ["end"] = { end_line + 1, 0 }
+              }
+          })
+      end
+    }),
+    vim.keymap.set('n', 'p', function()
+        vim.cmd('normal! p')
+        vim.lsp.buf.format({
+            async = true,
+            range = {
+                start = vim.api.nvim_buf_get_mark(0, "["),
+                ["end"] = vim.api.nvim_buf_get_mark(0, "]")
+            }
+        })
+    end),
 }
