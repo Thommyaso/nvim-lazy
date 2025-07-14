@@ -38,8 +38,6 @@ vim.keymap.set("n", "<C-t>", function()
     local path = vim.fn.getcwd()
     vim.cmd("tabnew | Explore " .. path)
 end)
-vim.keymap.set("n", "<C-Left>", ":tabp<CR>")
-vim.keymap.set("n", "<C-Right>", ":tabn<CR>")
 
 -- Sets the pwd to where the edditor was opened:
 --vim.cmd([[
@@ -82,6 +80,7 @@ vim.cmd [[
 --Git:
 vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
 vim.keymap.set("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", {})
+vim.keymap.set("n", "<leader>gb", ":Gitsigns blame_line<CR>", {})
 
 vim.keymap.set("n", "<leader>jq", ":%!jq . <CR>")
 vim.keymap.set("v", "<leader>jq", "!jq . <CR>")
@@ -101,3 +100,30 @@ vim.keymap.set('n', '<leader>Q', function()
     vim.cmd("copen")
   end
 end, { desc = "Toggle Quickfix Window" })
+
+-- Toggle Git Window
+vim.keymap.set("n", "<leader>G", function()
+  local fugitive_win = nil
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local bufname = vim.api.nvim_buf_get_name(buf)
+
+    if bufname:match("^fugitive://") then
+      fugitive_win = win
+      break
+    end
+  end
+
+  if fugitive_win then
+    vim.api.nvim_win_close(fugitive_win, true)
+  else
+    vim.cmd("Git")
+  end
+end, { desc = "Toggle Fugitive" })
+
+
+vim.keymap.set("n", "<C-Left>", ":tabmove -1<CR>")
+vim.keymap.set("n", "<C-Right>", ":tabmove +1<CR>")
+
+vim.keymap.set("n", "<leader>cp", ":let @+ = expand('%:p')<CR>")
