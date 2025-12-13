@@ -127,3 +127,6 @@ vim.keymap.set("n", "<C-Left>", ":tabmove -1<CR>")
 vim.keymap.set("n", "<C-Right>", ":tabmove +1<CR>")
 
 vim.keymap.set("n", "<leader>cp", ":let @+ = expand('%:p')<CR>")
+
+vim.keymap.set("n", "<C-l>", "<C-a>")
+vim.api.nvim_create_user_command("W", "w", {})
