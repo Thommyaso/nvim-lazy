@@ -193,33 +193,4 @@ return {
         vim.keymap.set('n', 'gY', '<CMD>Glance type_definitions<CR>')
     end,
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action),
-
-    -- text formatting on insert leave and pasting
-    -- vim.api.nvim_create_autocmd("InsertLeave", {
-    --     callback = function()
-    --       local start_line = vim.api.nvim_buf_get_mark(0, "[")[1]
-    --       local end_line = vim.api.nvim_buf_get_mark(0, "]")[1]
-    --
-    --         vim.lsp.buf.format({
-    --             async = true,
-    --             filter = function(client)
-    --                 return client.name ~= "lua_ls" and client.name ~= "cssls"
-    --             end,
-    --             range = {
-    --                 start = { start_line, 0 },
-    --                 ["end"] = { end_line + 1, 0 }
-    --             }
-    --         })
-    --   end
-    -- }),
-    -- vim.keymap.set('n', 'p', function()
-    --     vim.cmd('normal! p')
-    --     vim.lsp.buf.format({
-    --         async = true,
-    --         range = {
-    --             start = vim.api.nvim_buf_get_mark(0, "["),
-    --             ["end"] = vim.api.nvim_buf_get_mark(0, "]")
-    --         }
-    --     })
-    -- end),
 }
