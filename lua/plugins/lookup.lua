@@ -1,6 +1,5 @@
 return {
-	dir= '/home/thomas/devilbox/data/www/lookup',
-	-- dir = '/home/thomas/Projects/lookup',
+	dir= '/home/thomas/Repositories/lookup',
 	config = function ()
 		require "init"
 	end
