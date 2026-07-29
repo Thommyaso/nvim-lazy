@@ -171,3 +171,14 @@ vim.keymap.set("n", "<leader>cp", ":let @+ = expand('%:p')<CR>")
 
 vim.keymap.set("n", "<C-l>", "<C-a>")
 vim.api.nvim_create_user_command("W", "w", {})
+
+-- making sure treesitter applies its setup
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args)
+        local language = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+
+        if language then
+            pcall(vim.treesitter.start, args.buf, language)
+        end
+    end,
+})
