@@ -182,3 +182,18 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+
+-- auto indentation setup
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+        local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+
+        if not lang then
+            return
+        end
+
+        if vim.treesitter.language.add(lang) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end,
+})
